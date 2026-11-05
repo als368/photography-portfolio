@@ -4,163 +4,147 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alsu | Photography</title>
-  <meta name="description" content="Photography by Alsu: networking panels, Go Eng Girl!, NVIDIA x WISE, SickKids SSURE, Hart House and more." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>" />
+  <meta name="description" content="Alsu Photography, Photo Dump ver. Networking panels, Go Eng Girl!, NVIDIA x WISE, SickKids SSURE, Hart House and more." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%23FF8AD8%22/></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&family=Special+Elite&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet" />
 
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            paper: '#FBF8F1', ice: '#DCEBFA', powder: '#A9C8EE', blush: '#F9D2E0',
-            butter: '#FFE9A0', ink: '#22304A', cherry: '#D9434E'
-          },
-          fontFamily: {
-            display: ['"DM Serif Display"', 'Georgia', 'serif'],
-            body: ['"DM Sans"', 'system-ui', 'sans-serif'],
-            type: ['"Special Elite"', '"Courier New"', 'monospace']
-          }
-        }
-      }
-    };
-  </script>
+  <!-- Tailwind adds a few helper classes. All main layout and spacing lives in css/style.css so it always works. -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body class="bg-paper text-ink font-body antialiased">
-  <a href="#highlights" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] bg-white px-4 py-2 rounded-full">Skip to photos</a>
+<body>
+  <a href="#highlights" class="skip">Skip to photos</a>
 
-  <!-- NAV -->
-  <header class="fixed top-3 inset-x-3 z-40 flex justify-center">
-    <nav class="glass rounded-full px-3 py-2 flex items-center gap-1 text-sm sm:text-base" aria-label="Main">
-      <a href="#top" class="font-display italic text-xl px-3 hidden sm:block">Alsu</a>
-      <a href="#highlights" class="nav-link">Highlights</a>
-      <a href="#collabs" class="nav-link">Collaborations</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#contact" class="nav-link !bg-ink !text-white">Contact</a>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <a href="#top" class="brand script">Alsu</a>
+    <nav aria-label="Main">
+      <a href="#highlights" class="hide-sm">Highlights</a>
+      <a href="#collabs" class="hide-sm">Collaborations</a>
+      <a href="#about" class="hide-sm">About</a>
+      <a href="#contact" class="nav-cta">Contact</a>
     </nav>
   </header>
 
   <main id="top">
-    <!-- HERO -->
-    <section class="relative min-h-screen flex items-center overflow-hidden hero-bg px-5 pt-28 pb-16">
-      <span class="sparkle" style="top:16%;left:8%;--s:30px" aria-hidden="true">✦</span>
-      <span class="sparkle" style="top:30%;right:10%;--s:20px;animation-delay:.8s" aria-hidden="true">✦</span>
-      <span class="sparkle" style="bottom:14%;left:42%;--s:26px;animation-delay:1.6s" aria-hidden="true">✦</span>
+    <!-- HERO: photo-dump mosaic (built from your photos in js/main.js) -->
+    <section class="hero">
+      <div id="mosaic" class="mosaic" aria-hidden="true"></div>
 
-      <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-14 items-center">
-        <div class="text-center lg:text-left">
-          <p class="font-type text-lg sm:text-xl bg-white/80 inline-block px-3 py-1 rounded border border-ink/30">photographer on file: Alsu</p>
-          <h1 class="font-display italic text-[clamp(5rem,20vw,12rem)] leading-[.85] mt-4 hero-name">Alsu</h1>
-          <p class="mt-3"><span class="stamp">caught on camera</span></p>
-          <p class="mt-6 text-xl sm:text-2xl max-w-md mx-auto lg:mx-0 leading-snug">
-            Capturing women in STEM, one frame at a time.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
-            <a href="#highlights" class="btn bg-ink text-white">View highlights</a>
-            <a href="#contact" class="btn bg-butter text-ink border border-ink/40">Work with me</a>
-          </div>
+      <div class="hero-info">
+        <div class="round-sticker" aria-hidden="true">
+          <span class="script">Alsu</span>
+          <small>Photography<br />Photo Dump ver.</small>
         </div>
 
-        <!-- Polaroid stack: swap in any of your photos -->
-        <div class="relative h-[420px] sm:h-[520px]" aria-hidden="true">
-          <figure class="polaroid drop p1"><span class="tape"></span><img src="images/IMG_1011.jpg" alt="" /><figcaption>on the panel</figcaption></figure>
-          <figure class="polaroid drop p2"><span class="tape tape-blue"></span><img src="images/mateoshoot1.jpg" alt="" /><figcaption>big ideas</figcaption></figure>
-          <figure class="polaroid drop p3"><span class="tape tape-butter"></span><img src="images/_MG_5708.jpg" alt="" /><figcaption>flash on</figcaption></figure>
+        <h1 class="script hero-name">Alsu</h1>
+
+        <div class="hero-spec">
+          <p class="spec"><b>Alsu Photography Portfolio</b> | Photo Dump ver.</p>
+          <p class="spec">A photo dump style portfolio that brings together networking panels, Go Eng Girl!, NVIDIA x WISE, SickKids SSURE, a Hart House exhibit submission and Girls in Med Research.</p>
+          <p class="hero-tagline">Capturing women in STEM, one frame at a time.</p>
+          <div class="actions">
+            <a href="#highlights" class="btn btn-pink">View highlights</a>
+            <a href="#contact" class="btn btn-line">Work with me</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CAUTION-TAPE STRIP -->
-    <div class="tape-strip py-3 overflow-hidden whitespace-nowrap" aria-hidden="true">
-      <div class="marquee font-type text-lg">
-        <span>Networking Panels ✦ Go Eng Girl! ✦ NVIDIA x WISE ✦ SickKids SSURE ✦ Hart House Exhibit ✦ Girls in Med Research ✦ </span>
-        <span>Networking Panels ✦ Go Eng Girl! ✦ NVIDIA x WISE ✦ SickKids SSURE ✦ Hart House Exhibit ✦ Girls in Med Research ✦ </span>
-      </div>
-    </div>
+    <div class="pinstripe" aria-hidden="true"></div>
 
     <!-- HIGHLIGHTS (built from the list in js/main.js) -->
-    <section id="highlights" class="px-5 py-24 check-pink">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="section-title">Photography highlights</h2>
-        <p class="section-sub">Six projects. Tap any photo to view it full size.</p>
-        <nav id="chips" class="flex flex-wrap justify-center gap-2 mt-8" aria-label="Jump to a highlight"></nav>
+    <section id="highlights" class="section">
+      <div class="inner">
+        <div class="section-head">
+          <h2 class="script section-title">Highlights</h2>
+          <p class="spec">Six projects, one photo dump each. Tap any photo to view it full size.</p>
+        </div>
+        <nav id="chips" class="chips" aria-label="Jump to a highlight"></nav>
         <div id="sections"></div>
       </div>
     </section>
 
-    <!-- COLLABS -->
-    <section id="collabs" class="px-5 py-24 check-blue">
-      <div class="max-w-5xl mx-auto text-center">
-        <h2 class="section-title">Collaborations</h2>
-        <p class="section-sub">Organizations and programs I've had the joy of shooting for.</p>
-        <ul class="flex flex-wrap justify-center gap-5 mt-12">
-          <li><a href="#networking-panels" class="badge"><i class="bar bg-ice"></i><b>Networking Panels</b><span>event photography</span></a></li>
-          <li><a href="#go-eng-girl" class="badge"><i class="bar bg-blush"></i><b>Go Eng Girl!</b><span>event photography</span></a></li>
-          <li><a href="#nvidia-x-wise" class="badge"><i class="bar bg-butter"></i><b>NVIDIA x WISE</b><span>event photography</span></a></li>
-          <li><a href="#sickkids-ssure" class="badge"><i class="bar bg-ice"></i><b>SickKids SSURE</b><span>program highlights</span></a></li>
-          <li><a href="#hart-house-exhibit" class="badge"><i class="bar bg-blush"></i><b>U of T Hart House</b><span>exhibit submission</span></a></li>
-          <li><a href="#girls-in-med-research" class="badge"><i class="bar bg-butter"></i><b>Girls in Med Research</b><span>competition</span></a></li>
+    <!-- COLLABS: sticker sheet -->
+    <section id="collabs" class="section tint-mist">
+      <div class="inner">
+        <div class="section-head">
+          <h2 class="script section-title">Collaborations</h2>
+          <p class="spec">Organizations and programs I've had the joy of shooting for. Tap a sticker to see the photos.</p>
+        </div>
+        <ul class="sticker-sheet">
+          <li><a href="#networking-panels" class="foil"><span class="script">Networking Panels</span><small>event photography</small></a></li>
+          <li><a href="#go-eng-girl" class="silver"><span class="script">Go Eng Girl!</span><small>event photography</small></a></li>
+          <li><a href="#nvidia-x-wise" class="foil"><span class="script">NVIDIA x WISE</span><small>event photography</small></a></li>
+          <li><a href="#sickkids-ssure" class="silver"><span class="script">SickKids SSURE</span><small>program highlights</small></a></li>
+          <li><a href="#hart-house-exhibit" class="foil"><span class="script">U of T Hart House</span><small>exhibit submission</small></a></li>
+          <li><a href="#girls-in-med-research" class="silver"><span class="script">Girls in Med Research</span><small>competition</small></a></li>
         </ul>
+        <div class="barcode" aria-hidden="true"></div>
       </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="px-5 py-24">
-      <div class="max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-center">
-        <figure class="polaroid md:col-span-2 mx-auto rotate-[-4deg] w-64 sm:w-72">
-          <span class="tape tape-blue"></span>
+    <section id="about" class="section">
+      <div class="inner about-grid">
+        <figure class="photocard" aria-label="Portrait of Alsu">
           <img src="images/photo2.jpg" alt="Portrait of Alsu" />
-          <figcaption>hi, it's me</figcaption>
+          <div class="barcode small" aria-hidden="true"></div>
         </figure>
 
-        <div class="md:col-span-3">
-          <h2 class="section-title !text-left">About me</h2>
+        <div>
+          <h2 class="script section-title">About me</h2>
           <!-- Edit this bio so it sounds like you -->
-          <p class="mt-6 text-lg leading-relaxed max-w-prose">
+          <p class="about-text">
             I'm Alsu, a photographer who loves documenting women in STEM: the panels, the
             competitions, the quiet moments between sessions. My style is bright, clean and warm,
             built to make people look as capable and confident as they are.
           </p>
-          <p class="mt-4 text-lg leading-relaxed max-w-prose">
+          <p class="about-text">
             From networking events to hospital research programs to gallery exhibits,
             I'm always looking for the frame that tells the whole story.
           </p>
-          <ul class="mt-6 flex flex-wrap gap-2 text-sm">
-            <li class="chip bg-ice">Events</li>
-            <li class="chip bg-blush">Panels</li>
-            <li class="chip bg-butter">Portraits</li>
-            <li class="chip bg-ice">Exhibits</li>
-          </ul>
+          <dl class="spec-list">
+            <div><dt>Style</dt><dd>Bright, clean, warm</dd></div>
+            <div><dt>Subjects</dt><dd>Women in STEM, events, portraits</dd></div>
+            <div><dt>Projects</dt><dd>Panels, programs, exhibits, competitions</dd></div>
+          </dl>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="px-5 py-24 bg-ink text-paper relative overflow-hidden">
-      <span class="sparkle" style="top:14%;left:10%;--s:28px" aria-hidden="true">✦</span>
-      <span class="sparkle" style="bottom:18%;right:12%;--s:38px;animation-delay:1s" aria-hidden="true">✦</span>
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="font-display italic text-5xl sm:text-6xl">Let's work together</h2>
-        <p class="mt-4 text-xl">Events, panels, exhibits, programs. Tell me about yours.</p>
-        <!-- Replace with your real email and handles -->
-        <a href="mailto:your.email@example.com" class="btn bg-butter text-ink mt-8 text-lg">your.email@example.com</a>
-        <ul class="mt-8 flex flex-wrap justify-center gap-3">
-          <li><a class="social" href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a class="social" href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a class="social" href="https://tiktok.com/@yourhandle" target="_blank" rel="noopener">TikTok</a></li>
-        </ul>
+    <!-- CONTACT: pink envelope -->
+    <section id="contact" class="section tint-mist contact">
+      <div class="contact-wrap">
+        <div class="cd" aria-hidden="true"></div>
+        <div class="envelope">
+          <h2 class="script section-title center">Let's work together</h2>
+          <p class="env-sub">Events, panels, exhibits, programs. Tell me about yours.</p>
+
+          <!-- Replace with your real email and handles -->
+          <div class="label-sticker">
+            <span class="script">Alsu</span>
+            <small>Photography | Contact</small>
+            <a href="mailto:your.email@example.com">your.email@example.com</a>
+          </div>
+
+          <ul class="socials">
+            <li><a href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://tiktok.com/@yourhandle" target="_blank" rel="noopener">TikTok</a></li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="bg-ink text-ice/80 text-center py-8 text-sm border-t border-white/10">
-    <p>© <span id="year">2026</span> Alsu. All photos by me, please ask before using ♡</p>
+  <footer class="footer">
+    <p class="spec"><b>Alsu Photography</b> | Photo Dump ver. | © <span id="year">2026</span></p>
+    <p class="spec">All photos by me, please ask before using ♡</p>
   </footer>
 
   <!-- LIGHTBOX -->
@@ -169,7 +153,7 @@
     <button class="lb-btn lb-prev" data-act="prev" aria-label="Previous photo">‹</button>
     <figure class="lb-fig">
       <img id="lb-img" src="" alt="" />
-      <figcaption id="lb-cap" class="font-type text-lg mt-3"></figcaption>
+      <figcaption id="lb-cap" class="spec"></figcaption>
     </figure>
     <button class="lb-btn lb-next" data-act="next" aria-label="Next photo">›</button>
   </div>
