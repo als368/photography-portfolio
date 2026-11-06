@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alsu | Photography</title>
-  <meta name="description" content="Alsu Photography, Photo Dump ver. Networking panels, Go Eng Girl!, NVIDIA x WISE, SickKids SSURE, Hart House and more." />
+  <meta name="description" content="Alsu Photography, Photo Dump ver. Engineering PEY networking events, Go Eng Girl!, NVIDIA x WISE, SickKids SSURE, Hart House and more." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%23FF8AD8%22/></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -169,27 +169,52 @@ button { font: inherit; color: inherit; cursor: pointer; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-</style>
+/* ===== Albums + gallery view ===== */
+button.m-tile { padding: 0; border: 0; cursor: zoom-in; display: block; }
+.photocard[hidden], .lightbox[hidden] { display: none; }
+.albums-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 620px) { .albums-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .albums-grid { grid-template-columns: repeat(3, 1fr); } }
+.album { display: flex; flex-direction: column; text-decoration: none; background: #fff; padding: 10px 10px 1.1rem; border: 1px solid rgba(20,20,20,.15); border-radius: 12px; box-shadow: 0 10px 26px rgba(20,20,20,.1); transition: transform .2s, box-shadow .2s; }
+.album:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(20,20,20,.18); }
+.album-cover { display: block; aspect-ratio: 4/5; overflow: hidden; border-radius: 6px; background: var(--mist); }
+.album-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s; }
+.album:hover .album-cover img { transform: scale(1.05); }
+.album-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem .6rem; padding: 1rem .5rem .6rem; }
+.album-num { font-size: .85rem; }
+.album-title { font-size: 1.7rem; flex: 1 1 60%; }
+.album-meta small { flex-basis: 100%; font-size: .78rem; }
+.album-go { align-self: flex-start; margin: .2rem .5rem 0; background: var(--pink); padding: .35rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 500; }
+.note { background: var(--rose); padding: 1.25rem 1.5rem; max-width: 40rem; font-size: .95rem; }
+
+.album-view { padding-top: calc(56px + 2rem); }
+.back { display: inline-block; margin-bottom: 1.5rem; padding: .45rem 1.1rem; border: 1px solid var(--ink); border-radius: 999px; background: #fff; text-decoration: none; font-size: .9rem; }
+.back:hover { background: var(--pink); }
+.av-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 3rem; font-size: .9rem; }
+.av-nav a { text-decoration: none; border-bottom: 1px solid var(--ink); }
+
+  </style>
 </head>
 
 <body>
-  <a href="#highlights" class="skip">Skip to photos</a>
+  <a href="#albums" class="skip">Skip to photos</a>
 
   <!-- TOP BAR -->
   <header class="topbar">
     <a href="#top" class="brand script">Alsu</a>
     <nav aria-label="Main">
-      <a href="#highlights" class="hide-sm">Highlights</a>
+      <a href="#albums" class="hide-sm">Albums</a>
       <a href="#collabs" class="hide-sm">Collaborations</a>
       <a href="#about" class="hide-sm">About</a>
       <a href="#contact" class="nav-cta">Contact</a>
     </nav>
   </header>
 
+  <!-- MAIN PAGE -->
   <main id="top">
-    <!-- HERO: photo-dump mosaic (built from your photos in js/main.js) -->
+    <!-- HERO: featured photos (from the images/featured folder) -->
     <section class="hero">
-      <div id="mosaic" class="mosaic" aria-hidden="true"></div>
+      <div id="mosaic" class="mosaic"></div>
 
       <div class="hero-info">
         <div class="round-sticker" aria-hidden="true">
@@ -201,10 +226,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
         <div class="hero-spec">
           <p class="spec"><b>Alsu Photography Portfolio</b> | Photo Dump ver.</p>
-          <p class="spec">A photo dump style portfolio that brings together networking panels, Go Eng Girl!, NVIDIA x WISE, SickKids SSURE, a Hart House exhibit submission and Girls in Med Research.</p>
+          <p class="spec">A photo dump style portfolio that brings together Engineering PEY networking events, Go Eng Girl!, NVIDIA x WISE, SickKids SSURE, a Hart House exhibit submission and Girls in Med Research.</p>
           <p class="hero-tagline">Capturing women in STEM, one frame at a time.</p>
           <div class="actions">
-            <a href="#highlights" class="btn btn-pink">View highlights</a>
+            <a href="#albums" class="btn btn-pink">View albums</a>
             <a href="#contact" class="btn btn-line">Work with me</a>
           </div>
         </div>
@@ -213,15 +238,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
     <div class="pinstripe" aria-hidden="true"></div>
 
-    <!-- HIGHLIGHTS (built from the list in js/main.js) -->
-    <section id="highlights" class="section">
+    <!-- ALBUMS (each one opens a gallery) -->
+    <section id="albums" class="section">
       <div class="inner">
         <div class="section-head">
-          <h2 class="script section-title">Highlights</h2>
-          <p class="spec">Six projects, one photo dump each. Tap any photo to view it full size.</p>
+          <h2 class="script section-title">Albums</h2>
+          <p class="spec">One album for every project I've shot. Tap an album to open its gallery.</p>
         </div>
-        <nav id="chips" class="chips" aria-label="Jump to a highlight"></nav>
-        <div id="sections"></div>
+        <div id="albums-grid" class="albums-grid"></div>
       </div>
     </section>
 
@@ -233,12 +257,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <p class="spec">Organizations and programs I've had the joy of shooting for. Tap a sticker to see the photos.</p>
         </div>
         <ul class="sticker-sheet">
-          <li><a href="#networking-panels" class="foil"><span class="script">Networking Panels</span><small>event photography</small></a></li>
-          <li><a href="#go-eng-girl" class="silver"><span class="script">Go Eng Girl!</span><small>event photography</small></a></li>
-          <li><a href="#nvidia-x-wise" class="foil"><span class="script">NVIDIA x WISE</span><small>event photography</small></a></li>
-          <li><a href="#sickkids-ssure" class="silver"><span class="script">SickKids SSURE</span><small>program highlights</small></a></li>
-          <li><a href="#hart-house-exhibit" class="foil"><span class="script">U of T Hart House</span><small>exhibit submission</small></a></li>
-          <li><a href="#girls-in-med-research" class="silver"><span class="script">Girls in Med Research</span><small>competition</small></a></li>
+          <li><a href="#album-pey-networking-events" class="foil"><span class="script">Engineering PEY Networking Events</span><small>networking events</small></a></li>
+          <li><a href="#album-go-eng-girl" class="silver"><span class="script">Go Eng Girl!</span><small>event photography</small></a></li>
+          <li><a href="#album-nvidia-x-wise" class="foil"><span class="script">NVIDIA x WISE</span><small>event photography</small></a></li>
+          <li><a href="#album-sickkids-ssure" class="silver"><span class="script">SickKids SSURE</span><small>program highlights</small></a></li>
+          <li><a href="#album-hart-house-exhibit" class="foil"><span class="script">U of T Hart House</span><small>exhibit submission</small></a></li>
+          <li><a href="#album-girls-in-med-research" class="silver"><span class="script">Girls in Med Research</span><small>competition</small></a></li>
         </ul>
         <div class="barcode" aria-hidden="true"></div>
       </div>
@@ -247,8 +271,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
     <!-- ABOUT -->
     <section id="about" class="section">
       <div class="inner about-grid">
-        <figure class="photocard" aria-label="Portrait of Alsu">
-          <img src="images/photo2.jpg" alt="Portrait of Alsu" />
+        <figure id="aboutCard" class="photocard" aria-label="Portrait of Alsu" hidden>
+          <img id="aboutImg" src="" alt="Portrait of Alsu" />
           <div class="barcode small" aria-hidden="true"></div>
         </figure>
 
@@ -267,7 +291,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <dl class="spec-list">
             <div><dt>Style</dt><dd>Bright, clean, warm</dd></div>
             <div><dt>Subjects</dt><dd>Women in STEM, events, portraits</dd></div>
-            <div><dt>Projects</dt><dd>Panels, programs, exhibits, competitions</dd></div>
+            <div><dt>Projects</dt><dd>Networking events, programs, exhibits, competitions</dd></div>
           </dl>
         </div>
       </div>
@@ -281,7 +305,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
           <h2 class="script section-title center">Let's work together</h2>
           <p class="env-sub">Events, panels, exhibits, programs. Tell me about yours.</p>
 
-          <!-- Replace with your real email and handles -->
           <div class="label-sticker">
             <span class="script">Alsu</span>
             <small>Photography | Contact</small>
@@ -289,14 +312,26 @@ button { font: inherit; color: inherit; cursor: pointer; }
           </div>
 
           <ul class="socials">
-            <li><a href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://tiktok.com/@yourhandle" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://www.instagram.com/alsuscamera/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/alsu-o-958283419/" target="_blank" rel="noopener">LinkedIn</a></li>
           </ul>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- ALBUM GALLERY PAGE (shown when an album is opened) -->
+  <section id="albumView" class="section album-view" hidden>
+    <div class="inner">
+      <a href="#albums" class="back">← All albums</a>
+      <div class="section-head">
+        <h2 id="av-title" class="script section-title"></h2>
+        <p id="av-sub" class="spec"></p>
+      </div>
+      <div id="av-grid" class="dump-grid"></div>
+      <nav id="av-next" class="av-nav" aria-label="Other albums"></nav>
+    </div>
+  </section>
 
   <footer class="footer">
     <p class="spec"><b>Alsu Photography</b> | Photo Dump ver. | © <span id="year">2026</span></p>
@@ -315,162 +350,129 @@ button { font: inherit; color: inherit; cursor: pointer; }
   </div>
 
   <script>
-/* ------------------------------------------------------------------
-   EDIT YOUR PHOTOS HERE
-   HIGHLIGHTS = the six sections. MOSAIC = the photos in the top banner.
-   List filenames from your /images folder. Missing files are skipped
-   automatically, and a highlight with no photos is hidden.
-------------------------------------------------------------------- */
-const HIGHLIGHTS = [
-  { id: 'networking-panels', title: 'Networking Panels',
-    blurb: 'Speakers, conversations and connections from networking panel events.',
-    files: ['IMG_5426.jpg', 'IMG_5430.jpg', 'IMG_5433.jpg', 'IMG_5436.jpg', 'IMG_5466.jpg', 'IMG_5721.jpg', 'IMG_5756.jpg'] },
-
-  { id: 'go-eng-girl', title: 'Go Eng Girl!',
-    blurb: 'Girls exploring engineering, hands-on and full of curiosity.',
-    files: ['_MG_goenggirl.jpg', '_MG_5454.jpg', '_MG_5669.jpg', '_MG_5677.jpg', '_MG_5682.jpg', 'IMG_6785.jpg', 'IMG_6793.jpg', 'IMG_6828.jpg'] },
-
-  { id: 'nvidia-x-wise', title: 'NVIDIA x WISE',
-    blurb: 'Women in science and engineering coming together with NVIDIA.',
-    files: ['IMG_1011.jpg', 'DSC01608.jpg', 'IMG_4860.jpg', 'IMG_4866.jpg', 'IMG_4885.jpg'] },
-
-  { id: 'sickkids-ssure', title: 'SickKids SSURE Highlights',
-    blurb: 'Moments from the SickKids SSURE research program.',
-    files: ['IMG_6893.jpg', 'IMG_6914_2.jpg', 'IMG_6922_2.jpg', 'IMG_6939.jpg', 'IMG_6954_2.jpg', 'IMG_7017.jpg', 'IMG_7099.jpg', 'IMG_7264.jpg'] },
-
-  { id: 'hart-house-exhibit', title: 'U of T Hart House Exhibit Submission',
-    blurb: 'My photography submission for the Hart House exhibit.',
-    files: ['mateoshoot1.jpg', 'mateoshoot2.jpg', 'Sabaa_Rashid_2.jpg', 'Xinran_Xu_2.jpg', 'photo2.jpg', 'IMG_0926.jpg', 'IMG_0931.jpg'] },
-
-  { id: 'girls-in-med-research', title: 'Girls in Med Research Competition',
-    blurb: 'Presentations, teamwork and the thrill of competition day.',
-    files: ['_MG_5707.jpg', '_MG_5708.jpg', 'photo1.jpg'] }
+/* ==================================================================
+   EDIT YOUR ALBUMS HERE (only if you want to rename something).
+   "folder" must match a folder name inside /images exactly (lowercase,
+   dashes, no spaces). Photos are found automatically: just put them in
+   the folder. No need to list file names.
+================================================================== */
+const ALBUMS = [
+  { id: 'pey-networking-events', folder: 'pey-networking-events', title: 'Engineering PEY Networking Events', label: 'networking events' },
+  { id: 'go-eng-girl',           folder: 'go-eng-girl',           title: 'Go Eng Girl!',                      label: 'event photography' },
+  { id: 'nvidia-x-wise',         folder: 'nvidia-x-wise',         title: 'NVIDIA x WISE',                     label: 'event photography' },
+  { id: 'sickkids-ssure',        folder: 'sickkids-ssure',        title: 'SickKids SSURE Highlights',         label: 'program highlights' },
+  { id: 'hart-house-exhibit',    folder: 'hart-house-exhibit',    title: 'U of T Hart House Exhibit Submission', label: 'exhibit submission' },
+  { id: 'girls-in-med-research', folder: 'girls-in-med-research', title: 'Girls in Med Research Competition', label: 'competition' }
 ];
-
-// Top banner mosaic (12 tiles). Any missing photo becomes a pastel tile.
-const MOSAIC = ['IMG_1011.jpg', 'mateoshoot1.jpg', '_MG_5708.jpg', 'IMG_5430.jpg', 'IMG_0931.jpg', 'IMG_6939.jpg',
-                'Sabaa_Rashid_2.jpg', 'IMG_4885.jpg', 'IMG_0926.jpg', '_MG_5677.jpg', 'IMG_5721.jpg', 'IMG_7264.jpg'];
-
-const IMAGE_DIR = 'images/';
+// Only needed if you use a custom domain (leave empty for a normal github.io site)
+const SITE = { owner: '', repo: '' };
 
 /* ------------------------------------------------------------------ */
 (() => {
-  const sectionsEl = document.getElementById('sections');
-  const chipsEl = document.getElementById('chips');
-  const mosaicEl = document.getElementById('mosaic');
-  const box = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lb-img');
-  const lbCap = document.getElementById('lb-cap');
+  const $ = (s) => document.querySelector(s);
+  const IMG_EXT = /\.(jpe?g|png|webp|gif|avif)$/i;
+  const natural = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+  const toUrl = (path) => path.split('/').map(encodeURIComponent).join('/');
+
+  const mainEl = $('#top'), viewEl = $('#albumView'), mosaicEl = $('#mosaic'), albumsEl = $('#albums-grid');
+  const box = $('#lightbox'), lbImg = $('#lb-img'), lbCap = $('#lb-cap');
+  const photosByAlbum = {};
   let list = [], index = 0, lastFocus = null;
 
-  // Check which image files really exist before drawing anything
-  const exists = (src) => new Promise((res) => {
-    const im = new Image();
-    im.onload = () => res(true);
-    im.onerror = () => res(false);
-    im.src = src;
-  });
+  /* ---------- find the photos ---------- */
+  function repoInfo() {
+    if (SITE.owner && SITE.repo) return SITE;
+    const host = location.hostname;
+    if (!host.endsWith('.github.io')) return null;
+    const owner = host.split('.')[0];
+    const seg = location.pathname.split('/').filter(Boolean)[0];
+    const repo = seg && !seg.includes('.') ? seg : owner + '.github.io';
+    return { owner, repo };
+  }
 
-  // Accept .jpg / .JPG / .jpeg / .png so capital letters in file endings don't matter
-  const EXTS = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG'];
-  async function resolve(file) {
-    const base = IMAGE_DIR + file.replace(/\.[^.]+$/, '');
-    for (const ext of EXTS) {
-      const url = encodeURI(base + ext);
-      if (await exists(url)) return url;
+  // Ask GitHub which files exist in /images (works for any file names)
+  async function fromGitHub() {
+    const info = repoInfo();
+    if (!info) return null;
+    const key = 'alsu-photos:' + info.owner + '/' + info.repo;
+    try {
+      const c = JSON.parse(sessionStorage.getItem(key) || 'null');
+      if (c && Date.now() - c.t < 120000) return c.data;
+    } catch (e) {}
+    for (const ref of ['HEAD', 'main', 'master']) {
+      try {
+        const r = await fetch(`https://api.github.com/repos/${info.owner}/${info.repo}/git/trees/${ref}?recursive=1`);
+        if (!r.ok) continue;
+        const j = await r.json();
+        const data = {};
+        (j.tree || []).forEach((n) => {
+          if (n.type !== 'blob' || !IMG_EXT.test(n.path)) return;
+          const p = n.path.split('/');
+          if (p.length === 3 && p[0] === 'images') {
+            const f = p[1].toLowerCase();
+            (data[f] = data[f] || []).push(n.path);
+          }
+        });
+        Object.values(data).forEach((a) => a.sort(natural));
+        try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), data })); } catch (e) {}
+        return data;
+      } catch (e) {}
     }
     return null;
   }
 
-  const missing = [];
-
-  async function buildMosaic() {
-    const urls = (await Promise.all(MOSAIC.map(resolve)));
-    const tints = ['tint-a', 'tint-b', 'tint-c'];
-    urls.forEach((u, i) => {
-      const d = document.createElement('div');
-      d.className = 'm-tile' + (u ? '' : ' ' + tints[i % 3]);
-      if (u) d.innerHTML = `<img src="${u}" alt="" />`;
-      else missing.push(MOSAIC[i]);
-      mosaicEl.appendChild(d);
-    });
+  // Backup plan: look for 1.jpg, 2.jpg, 3.jpg ... in a folder
+  const exists = (src) => new Promise((res) => {
+    const im = new Image(); im.onload = () => res(true); im.onerror = () => res(false); im.src = src;
+  });
+  async function probe(folder) {
+    const out = []; let misses = 0;
+    for (let i = 1; i <= 60 && misses < 3; i++) {
+      let found = null;
+      for (const ext of ['.jpg', '.JPG', '.jpeg', '.png']) {
+        const u = `images/${folder}/${i}${ext}`;
+        if (await exists(u)) { found = u; break; }
+      }
+      if (found) { out.push(found); misses = 0; } else misses++;
+    }
+    return out;
   }
 
-  async function build() {
-    for (const h of HIGHLIGHTS) {
-      const urls = await Promise.all(h.files.map(resolve));
-      h.files.forEach((f, i) => { if (!urls[i]) missing.push(f); });
-      const photos = urls.filter(Boolean).map((src, i) => ({
-        src,
-        alt: `${h.title}, photo ${i + 1}`,
-        caption: `${h.title} | ${i + 1} of ${urls.filter(Boolean).length}`
-      }));
-      if (!photos.length) continue;
-
-      const n = sectionsEl.children.length + 1;
-      const sec = document.createElement('section');
-      sec.id = h.id;
-      sec.className = 'dump tone-' + ((n - 1) % 3);
-      sec.innerHTML = `
-        <header class="dump-head">
-          <span class="dump-num">${n}.</span>
-          <h3 class="script dump-title">${h.title}</h3>
-          <p class="spec">${h.blurb} | ${photos.length} photos</p>
-        </header>
-        <div class="dump-grid"></div>`;
-      const grid = sec.querySelector('.dump-grid');
-      photos.forEach((p, i) => {
-        const b = document.createElement('button');
-        b.className = 'tile';
-        b.setAttribute('aria-label', `Open photo ${i + 1} of ${h.title}`);
-        b.innerHTML = `<img loading="lazy" src="${p.src}" alt="${p.alt}" />`;
-        b.addEventListener('click', () => open(photos, i));
-        grid.appendChild(b);
-      });
-      sectionsEl.appendChild(sec);
-
-      const chip = document.createElement('a');
-      chip.href = '#' + h.id;
-      chip.className = 'chip';
-      chip.textContent = `${n}. ${h.title}`;
-      chipsEl.appendChild(chip);
-    }
-    if (missing.length) console.warn('Photos not found in /images:', missing);
-    if (!sectionsEl.children.length) {
-      sectionsEl.innerHTML = '<p class="spec">No photos found yet. Check that your files are inside the images folder and that their names match js/main.js exactly.</p>';
-    }
-    // jump to a #hash target (e.g. from the Collaborations stickers) once built
-    if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+  async function loadPhotos() {
+    const gh = await fromGitHub();
+    const folders = ['featured', 'about', ...ALBUMS.map((a) => a.folder)];
+    const result = {};
+    folders.forEach((f) => { result[f] = gh && gh[f] && gh[f].length ? gh[f].map(toUrl) : null; });
+    await Promise.all(folders.filter((f) => !result[f]).map(async (f) => { result[f] = await probe(f); }));
+    return result;
   }
 
-  // Lightbox
+  /* ---------- lightbox ---------- */
   function show(i) {
     index = (i + list.length) % list.length;
     const p = list[index];
     lbImg.src = p.src; lbImg.alt = p.alt; lbCap.textContent = p.caption;
   }
-  function open(photos, i) {
+  function openBox(photos, i) {
     list = photos; lastFocus = document.activeElement;
-    show(i);
-    box.hidden = false;
+    show(i); box.hidden = false;
     document.body.style.overflow = 'hidden';
     box.querySelector('.lb-close').focus();
   }
-  function close() {
+  function closeBox() {
     box.hidden = true; lbImg.src = '';
     document.body.style.overflow = '';
     if (lastFocus) lastFocus.focus();
   }
-
   box.addEventListener('click', (e) => {
     const act = e.target.dataset.act;
-    if (act === 'close' || e.target === box) close();
+    if (act === 'close' || e.target === box) closeBox();
     else if (act === 'prev') show(index - 1);
     else if (act === 'next') show(index + 1);
   });
   document.addEventListener('keydown', (e) => {
     if (box.hidden) return;
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') closeBox();
     if (e.key === 'ArrowLeft') show(index - 1);
     if (e.key === 'ArrowRight') show(index + 1);
   });
@@ -481,15 +483,111 @@ const IMAGE_DIR = 'images/';
     if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
   });
 
-  // Hide the About photocard if its photo file is missing
-  document.addEventListener('error', (e) => {
-    if (e.target.tagName === 'IMG') e.target.closest('.photocard')?.remove();
-  }, true);
+  /* ---------- page pieces ---------- */
+  // Top mosaic: 12 pastel tiles show instantly, photos drop in when found
+  const TILES = 12, tints = ['tint-a', 'tint-b', 'tint-c'];
+  const tileEls = [];
+  for (let i = 0; i < TILES; i++) {
+    const t = document.createElement('button');
+    t.className = 'm-tile ' + tints[i % 3];
+    t.tabIndex = -1; t.disabled = true;
+    mosaicEl.appendChild(t); tileEls.push(t);
+  }
+  function fillMosaic(featured) {
+    const photos = featured.slice(0, TILES).map((src, i) => ({ src, alt: 'Featured photo ' + (i + 1), caption: 'Featured work' }));
+    photos.forEach((p, i) => {
+      const t = tileEls[i];
+      t.className = 'm-tile'; t.disabled = false; t.tabIndex = 0;
+      t.setAttribute('aria-label', 'Open featured photo ' + (i + 1));
+      t.innerHTML = `<img src="${p.src}" alt="" />`;
+      t.addEventListener('click', () => openBox(photos, i));
+    });
+  }
 
-  document.getElementById('year').textContent = new Date().getFullYear();
-  buildMosaic().then(build);
+  function buildAlbums() {
+    let n = 0;
+    ALBUMS.forEach((a) => {
+      const urls = photosByAlbum[a.id];
+      if (!urls.length) return;
+      n++;
+      const card = document.createElement('a');
+      card.className = 'album';
+      card.href = '#album-' + a.id;
+      card.innerHTML = `
+        <span class="album-cover"><img loading="lazy" src="${urls[0]}" alt="Cover photo for ${a.title}" /></span>
+        <span class="album-meta">
+          <b class="album-num">${n}.</b>
+          <span class="script album-title">${a.title}</span>
+          <small>${a.label} | ${urls.length} photos</small>
+        </span>
+        <span class="album-go">View gallery →</span>`;
+      albumsEl.appendChild(card);
+    });
+    if (!n) {
+      albumsEl.outerHTML = `<div class="note"><b>No photos found yet.</b> Make sure your photos are inside folders in <code>images</code>, such as <code>images/nvidia-x-wise</code>, then wait a minute and refresh the page.</div>`;
+    }
+  }
+
+  function showAlbum(a) {
+    const urls = photosByAlbum[a.id];
+    const photos = urls.map((src, i) => ({ src, alt: `${a.title}, photo ${i + 1}`, caption: `${a.title} | ${i + 1} of ${urls.length}` }));
+    $('#av-title').textContent = a.title;
+    $('#av-sub').textContent = `${a.label} | ${urls.length} photos. Tap any photo to view it full size.`;
+    const grid = $('#av-grid');
+    grid.innerHTML = '';
+    photos.forEach((p, i) => {
+      const b = document.createElement('button');
+      b.className = 'tile';
+      b.setAttribute('aria-label', `Open photo ${i + 1} of ${a.title}`);
+      b.innerHTML = `<img loading="lazy" src="${p.src}" alt="${p.alt}" />`;
+      b.addEventListener('click', () => openBox(photos, i));
+      grid.appendChild(b);
+    });
+    const avail = ALBUMS.filter((x) => photosByAlbum[x.id].length);
+    const k = avail.indexOf(a);
+    const prev = avail[(k - 1 + avail.length) % avail.length], next = avail[(k + 1) % avail.length];
+    $('#av-next').innerHTML = avail.length > 1
+      ? `<a href="#album-${prev.id}">← ${prev.title}</a><a href="#album-${next.id}">${next.title} →</a>` : '';
+    mainEl.hidden = true; viewEl.hidden = false;
+    document.title = `${a.title} | Alsu Photography`;
+    window.scrollTo(0, 0);
+  }
+
+  let ready = false;
+  function route() {
+    if (!ready) return;
+    const m = location.hash.match(/^#album-(.+)$/);
+    const a = m && ALBUMS.find((x) => x.id === decodeURIComponent(m[1]));
+    if (a && photosByAlbum[a.id].length) { showAlbum(a); return; }
+    const wasHidden = mainEl.hidden;
+    mainEl.hidden = false; viewEl.hidden = true;
+    document.title = 'Alsu | Photography';
+    if (wasHidden) {
+      const target = location.hash && !m ? document.querySelector(location.hash) : null;
+      if (target) target.scrollIntoView(); else window.scrollTo(0, 0);
+    }
+  }
+  window.addEventListener('hashchange', route);
+
+  /* ---------- go ---------- */
+  $('#year').textContent = new Date().getFullYear();
+  loadPhotos().then((found) => {
+    ALBUMS.forEach((a) => { photosByAlbum[a.id] = found[a.folder] || []; });
+    let featured = found.featured || [];
+    if (!featured.length) {            // no "featured" folder? use the first photos of each album
+      ALBUMS.forEach((a) => featured.push(...photosByAlbum[a.id].slice(0, 2)));
+    }
+    fillMosaic(featured);
+    const about = (found.about && found.about[0]) || featured[0];
+    if (about) { $('#aboutImg').src = about; $('#aboutCard').hidden = false; }
+    buildAlbums();
+    ready = true;
+    console.info('Photos found:', Object.fromEntries(Object.entries(found).map(([k, v]) => [k, v.length])));
+    route();
+    try { if (location.hash && !/^#album-/.test(location.hash)) $(location.hash)?.scrollIntoView(); } catch (e) {}
+  });
 })();
 
-</script>
+  </script>
 </body>
 </html>
