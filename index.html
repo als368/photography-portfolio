@@ -48,11 +48,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* Hero */
 .hero { padding-top: 56px; }
-.mosaic { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: clamp(110px, 28vw, 170px); grid-auto-flow: dense; gap: var(--gap); background: #fff; }
-@media (min-width: 700px) { .mosaic { grid-template-columns: repeat(4, 1fr); grid-auto-rows: clamp(150px, 17vw, 250px); } }
+.mosaic { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: clamp(80px, 13vw, 190px); grid-auto-flow: dense; gap: var(--gap); background: #fff; }
 .m-tile { overflow: hidden; background: var(--mist); }
 .m-tile img { width: 100%; height: 100%; object-fit: cover; }
-.m-tile:nth-child(5n+2) { grid-column: span 2; }
+.m-tile:nth-child(3n+2) { grid-column: span 2; }
 .m-tile.tint-a { background: var(--mist2); }
 .m-tile.tint-b { background: repeating-linear-gradient(0deg, var(--stripe) 0 3px, #fff 3px 8px); }
 .m-tile.tint-c { background: var(--pink); }
